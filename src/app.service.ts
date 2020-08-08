@@ -16,16 +16,17 @@ export class AppService {
       return cur.amount + prev
     }, 0)
 
-    return totalIncome/history.length
+    return totalIncome > 0 ? totalIncome/history.length : 0
   }
 
   calculateCreditScore(data: CreditScoreRequest): Observable<CreditScoreResponse> {
       const { amount, monoId } = data
       let score: number;
 
-      return this.monoService.getUserDebits(monoId)
+      return this.monoService.getUserCredits(monoId)
         .pipe(
             map(response => {
+                this.logger.log(response)
                 if(response.status === 'success') {
                     const averageIncome = this.getAverageIncome(response.data.history)
                     const avgIncome = response.data.total/response.data.history.length
