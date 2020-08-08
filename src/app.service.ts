@@ -26,7 +26,6 @@ export class AppService {
       return this.monoService.getUserCredits(monoId)
         .pipe(
             map(response => {
-                this.logger.log(response)
                 if(response.status === 'success') {
                     const averageIncome = this.getAverageIncome(response.data.history)
                     const avgIncome = response.data.total/response.data.history.length
