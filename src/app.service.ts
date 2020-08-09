@@ -30,7 +30,8 @@ export class AppService {
                     const averageIncome = this.getAverageIncome(response.data.history)
                     const avgIncome = response.data.total/response.data.history.length
 
-                    const payable = averageIncome * 0.2 * 3
+                    const payableInKobo = averageIncome * 0.2 * 3
+                    const payable = payableInKobo/100
                     if(amount > payable) {
                         score = payable
                     } else if(amount < payable) {
